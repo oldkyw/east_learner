@@ -12,3 +12,6 @@ and unpack it in the project root dir.
 - opencv 3.4.2,
 
 - numpy 1.18.1
+
+# run
+python run_learner.py
