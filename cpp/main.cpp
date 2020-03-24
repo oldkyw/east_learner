@@ -201,7 +201,6 @@ class Polygon
             */
             cv::Mat map = cv::Mat::zeros(hw[0], hw[1], CV_8S);
             cv::fillConvexPoly(map, points_mat, 1);
-            // cv::imwrite("/home/ppotrykus/Pictures/busy/gdansk manually labelled/polygon.jpg", map);
             return mat_to_tensor(map);
         }
 
@@ -352,8 +351,8 @@ int main(int argc, const char* argv[]) {
     // }
     // auto model_path = argv[1];
     // auto img_path = argv[2];
-    auto model_path = "/home/ppotrykus/bus_detector/models/pvanet_traced.pt";
-    auto img_path = "/home/ppotrykus/Pictures/busy/gdansk manually labelled/img/82.jpg";
+    auto model_path = "./models/pvanet_traced.pt";
+    auto img_path = "./dataset/test/img/82.jpg";
     torch::jit::script::Module module;
     std::vector<torch::jit::IValue> input;
     try {
@@ -366,7 +365,6 @@ int main(int argc, const char* argv[]) {
     }
     std::cout << "Model loaded successfully.\n";
 
-    // cv::Mat img = cv::imread("/home/ppotrykus/Pictures/busy/gdansk manually labelled/img/52.jpg");
     cv::Mat img = cv::imread(img_path);
     cv::resize(img, img, cv::Size(512,512));
     
@@ -380,5 +378,5 @@ int main(int argc, const char* argv[]) {
     for(const Polygon &polygon: detections) {
         std::cout << "votes: " << polygon.get_votes() << " flow:" << polygon.get_flow() << "\n"; 
     }
-    save_output_layer(output, 0, "/home/ppotrykus/Pictures/busy/gdansk manually labelled/score.jpg");
+    save_output_layer(output, 0, "./score.jpg");
 }
